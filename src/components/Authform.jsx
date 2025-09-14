@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import Image from "../assets/atg_illustration.svg";
 
-const AuthModal = () => {
-  const navigate = useNavigate();
-  const [isSignIn, setIsSignIn] = useState(true);
+const AuthForm = ({ isSignUpInitial = false, onClose }) => {
+  const [isSignIn, setIsSignIn] = useState(!isSignUpInitial);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,10 +16,7 @@ const AuthModal = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -33,28 +28,34 @@ const AuthModal = () => {
     console.log(`Sign up with ${platform}`);
   };
 
+  const handleClose = () => {
+    if (onClose) onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto relative">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative flex flex-col md:flex">
+        
         {/* Close Button */}
         <button
-          onClick={() => navigate("/")}
-          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 bg-white rounded-full p-1 shadow-md"
+          onClick={handleClose}
+          className="absolute  right-4 top-4 text-gray-400 hover:text-gray-600 bg-white rounded-full p-1 shadow-md"
         >
           <X size={20} />
         </button>
 
-        {/* Title */}
-        <div className="w-full p-4 border-b border-gray-200 text-center bg-[#EFFFF4]">
+        {/* Header (Common) */}
+        <div className="w-full p-4 border-b border-gray-200 bg-[#EFFFF4] hidden md:flex justify-start">
           <h1 className="text-sm font-medium text-gray-900">
-            Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼
+            Let's learn, share & inspire each other with our passion for computer engineering. Sign up now! 🤘🏼
           </h1>
         </div>
+           <div className="flex">
 
-        {/* Form Section */}
-        <div className="p-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-            {isSignIn ? "Welcome back!" : "Create Account"}
+            {/* Form Section */}
+        <div className="w-full md:w-1/2 p-6 max-h-[70vh] overflow-y-auto">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center md:text-left">
+            {isSignIn ? "Sign In" : "Create Account"}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -66,7 +67,7 @@ const AuthModal = () => {
                   placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full p-3 bg-gray-200 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
+                  className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
                   required
                 />
                 <input
@@ -75,7 +76,7 @@ const AuthModal = () => {
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className="w-full p-3 bg-gray-200 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
+                  className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
                   required
                 />
               </div>
@@ -87,7 +88,7 @@ const AuthModal = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full p-3 bg-gray-200 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
+              className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none"
               required
             />
 
@@ -98,7 +99,7 @@ const AuthModal = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full p-3 bg-gray-200 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white pr-12 outline-none"
+                className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white pr-12 outline-none"
                 required
               />
               <button
@@ -118,7 +119,7 @@ const AuthModal = () => {
                   placeholder="Confirm Password"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="w-full p-3 bg-gray-200 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white pr-12 outline-none"
+                  className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white pr-12 outline-none"
                   required
                 />
                 <button
@@ -133,14 +134,11 @@ const AuthModal = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium p-3 rounded-full mt-4"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full mt-4"
             >
               {isSignIn ? "Sign In" : "Create Account"}
             </button>
-          </form>
 
-          {/* Social Buttons */}
-          {!isSignIn && (
             <div className="mt-4 space-y-3">
               <button
                 onClick={() => handleSocialSignUp("Facebook")}
@@ -149,7 +147,7 @@ const AuthModal = () => {
                 <div className="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center">
                   <span className="text-white text-xs font-bold">f</span>
                 </div>
-                <span className="text-gray-700">Sign Up with Facebook</span>
+                <span className="text-gray-700">{isSignIn ? "Sign In with Facebook" : "Sign Up with Facebook"}</span>
               </button>
               <button
                 onClick={() => handleSocialSignUp("Google")}
@@ -158,46 +156,53 @@ const AuthModal = () => {
                 <div className="w-5 h-5 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center">
                   <span className="text-white text-xs font-bold">G</span>
                 </div>
-                <span className="text-gray-700">Sign Up with Google</span>
+                <span className="text-gray-700">{isSignIn ? "Sign In with Google" : "Sign Up with Google"}</span>
               </button>
             </div>
-          )}
 
-          {isSignIn && (
-            <p className="text-center text-sm text-gray-500 mt-4">
-              Forgot Password?{" "}
-              <a href="#" className="text-blue-600 hover:text-blue-700">
-                Reset it
-              </a>
-            </p>
-          )}
+            {isSignIn && (
+              <p className="text-center text-sm text-gray-500 mt-4">
+                Forgot Password?{" "}
+                <a href="#" className="text-blue-600 hover:text-blue-700">
+                  Reset it
+                </a>
+              </p>
+            )}
+          </form>
 
-          <p className="text-center text-sm text-gray-500 mt-4">
-            {isSignIn ? "Don't have an account?" : "Already have an account?"}
-            <button
-              onClick={() => setIsSignIn(!isSignIn)}
-              className="text-blue-600 hover:text-blue-700 font-medium ml-1"
-            >
-              {isSignIn ? "Create new for free!" : "Sign In"}
-            </button>
-          </p>
+         
         </div>
+{/* Illustration Section */}
+<div className="hidden md:flex md:w-1/2 bg-white p-4 flex-col items-end text-end justify-start space-y-4 mt-5">
+  
+  {/* Sign In / Sign Up Switch */}
+  <p className="text-center text-sm text-gray-500">
+    {isSignIn ? "Don't have an account?" : "Already have an account?"}
+    <button
+      onClick={() => setIsSignIn(!isSignIn)}
+      className="text-blue-600 hover:text-blue-700 font-medium ml-1"
+    >
+      {isSignIn ? "Create new for free!" : "Sign In"}
+    </button>
+  </p>
 
-        {/* Footer Terms */}
-        <div className="p-4 text-center text-xs text-gray-500">
-          By {isSignIn ? "signing in" : "signing up"}, you agree to our{" "}
-          <a href="#" className="underline text-blue-600">
-            Terms & conditions
-          </a>
-          ,{" "}
-          <a href="#" className="underline text-blue-600">
-            Privacy policy
-          </a>
-          .
-        </div>
+  {/* Illustration */}
+  <div >
+    <img src={Image} alt="Illustration" className="max-w-[240px] mx-auto" />
+  </div>
+
+  
+<h1 className="text-xs">By signing up, you agree to our Terms & conditions, Privacy policy</h1>
+
+</div>
+
+
+
+
+           </div>
       </div>
     </div>
   );
 };
 
-export default AuthModal;
+export default AuthForm;
