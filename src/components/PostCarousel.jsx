@@ -77,10 +77,10 @@ const PostCarousel = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="hidden sm:block w-64 p-4">
+        <div className="hidden sm:block w-64 p-4 ">
           <div className="bg-white p-4 rounded-lg mb-4">
             <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center text-gray-500">
+              <div className="flex items-center text-gray-500 ">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -88,14 +88,14 @@ const PostCarousel = () => {
                 <span className="text-sm">Enter your location</span>
               </div>
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-400 ">
               Your location will help us serve better and upload a personalised experience.
             </p>
           </div>
 
-          <div className="bg-white p-4 rounded-lg sticky top-20">
+          <div className="bg-white p-4 rounded-lg  ">
             <h3 className="text-sm font-semibold mb-3">RECOMMENDED GROUPS</h3>
-            <div className="space-y-3">
+            <div className="space-y-3 mt-10">
               {recommendedGroups.map((group, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -106,7 +106,7 @@ const PostCarousel = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-xs text-blue-500 cursor-pointer hover:underline">See More...</div>
+            <div className="mt-10 text-sm text-blue-500 text-end cursor-pointer hover:underline ">See More...</div>
           </div>
         </div>
       </div>
