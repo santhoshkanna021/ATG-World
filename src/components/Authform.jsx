@@ -9,24 +9,24 @@ const AuthModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
   };
 
   const handleSocialSignUp = (platform) => {
@@ -45,17 +45,16 @@ const AuthModal = () => {
           <X size={20} />
         </button>
 
-        {/* Title Section */}
+        {/* Title */}
         <div className="w-full p-4 border-b border-gray-200 text-center bg-[#EFFFF4]">
           <h1 className="text-sm md:text-md font-medium text-gray-900">
             Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼
           </h1>
         </div>
 
-        {/* Main Content */}
         <div className="flex flex-col md:flex-row max-h-[600px] overflow-hidden">
 
-          {/* Left Form Section */}
+          {/* Left Form */}
           <div className="w-full md:w-1/2 p-4 md:p-6 bg-white overflow-y-auto max-h-[600px]">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 md:mb-6 mt-2">
               {isSignIn ? "Sign In" : "Create Account"}
@@ -147,7 +146,7 @@ const AuthModal = () => {
             {!isSignIn && (
               <div className="mt-4 md:mt-6 space-y-3">
                 <button
-                  onClick={() => handleSocialSignUp('Facebook')}
+                  onClick={() => handleSocialSignUp("Facebook")}
                   className="w-full flex items-center justify-center gap-3 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center">
@@ -157,7 +156,7 @@ const AuthModal = () => {
                 </button>
 
                 <button
-                  onClick={() => handleSocialSignUp('Google')}
+                  onClick={() => handleSocialSignUp("Google")}
                   className="w-full flex items-center justify-center gap-3 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="w-5 h-5 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 flex items-center justify-center">
@@ -169,7 +168,7 @@ const AuthModal = () => {
             )}
           </div>
 
-          {/* Right Illustration Section */}
+          {/* Right Illustration */}
           <div className="flex-1 bg-white p-4 md:p-6 flex flex-col items-center justify-start text-center">
             <p className="text-gray-600 mb-6">
               {isSignIn ? "Don't have an account?" : "Already have an account?"}
@@ -185,11 +184,16 @@ const AuthModal = () => {
 
             <p className="text-xs text-gray-500 mt-6">
               By {isSignIn ? "signing in" : "signing up"}, you agree to our{" "}
-              <a href="#" className="underline text-blue-600">Terms & conditions</a>,{" "}
-              <a href="#" className="underline text-blue-600">Privacy policy</a>.
+              <a href="#" className="underline text-blue-600">
+                Terms & conditions
+              </a>
+              ,{" "}
+              <a href="#" className="underline text-blue-600">
+                Privacy policy
+              </a>
+              .
             </p>
           </div>
-
         </div>
       </div>
     </div>
