@@ -28,49 +28,43 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignIn) {
-      // Validate login with dummy credentials
       if (
         formData.email === dummyCredentials.email &&
         formData.password === dummyCredentials.password
       ) {
-        // Redirect to home page
         window.location.href = "/";
       } else {
-        console.log("Invalid credentials");
         alert("Invalid email or password");
       }
     } else {
-      // Handle sign-up (for now, just log and simulate success)
       console.log("Sign-up submitted:", formData);
-      // Redirect to home page
       window.location.href = "/";
     }
   };
 
   const handleSocialSignUp = (platform) => {
     console.log(`Sign up with ${platform}`);
-    // Simulate social login success and redirect to home page
     window.location.href = "/";
   };
 
   const handleClose = () => {
-    console.log("Close button clicked"); // Debug log
-    if (onClose) onClose(); // Ensure onClose is called only if defined
+    if (onClose) onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-transparent rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative flex flex-col md:flex-row">
+      <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative flex flex-col md:flex-row">
+        
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 bg-white rounded-full p-1 shadow-md z-60"
-          style={{ zIndex: 60 }} // Inline z-index for emphasis
+          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 bg-white rounded-full p-1 shadow-md"
         >
           <X size={20} />
         </button>
 
         <div className="flex flex-col md:flex-row w-full bg-transparent">
+          
           {/* Form Section */}
           <div className="w-full md:w-1/2 p-4 max-h-[calc(90vh-2rem)] md:max-h-[80vh] overflow-y-auto bg-white rounded-l-xl">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left">
