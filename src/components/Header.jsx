@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <div
-      className="w-full h-[30rem] bg-cover bg-center sm:bg-center flex flex-col justify-center items-start text-white relative"
+      className="w-full h-[20rem] sm:h-[30rem] bg-cover bg-center flex flex-col justify-center items-start text-white relative"
       style={{ backgroundImage: `url(${headerImage})` }}
     >
       {/* Back arrow and Leave/Join button */}
