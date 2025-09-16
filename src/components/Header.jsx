@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <div
-      className="w-full h-[30rem] bg-cover bg-center flex flex-col justify-center items-start text-white relative"
+      className="w-full h-[30rem] bg-cover bg-center sm:bg-center flex flex-col justify-center items-start text-white relative"
       style={{ backgroundImage: `url(${headerImage})` }}
     >
       {/* Back arrow and Leave/Join button */}
@@ -29,7 +29,7 @@ const Header = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative px-4 sm:px-[7.5rem] mt-auto mb-8">
+      <div className="relative px-4 sm:px-[7.5rem] mt-auto mb-8 text-center sm:text-left w-full">
         <h1 className="text-3xl sm:text-5xl font-bold mb-2 sm:mb-4">
           Computer Engineering
         </h1>
