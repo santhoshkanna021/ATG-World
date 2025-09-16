@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import logo from "../assets/Navbar/whole.svg";
 import { AiOutlineSearch } from "react-icons/ai";
 import arrow from "../assets/Navbar/Vector.png";
-import AuthForm from "./AuthForm"; // Import the modal form component
+import AuthForm from "./Authform"; // Import the modal form component
+import userProfileImage from "../assets/Navbar/whole.svg"; // Dummy user profile image
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
-  const [showAuthModal, setShowAuthModal] = useState(false); // State to control modal visibility
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [user, setUser] = useState(null); // Stores logged-in user data
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,9 +18,13 @@ const Navbar = () => {
   const openModal = () => setShowAuthModal(true);
   const closeModal = () => setShowAuthModal(false);
 
+  const handleLogin = (userData) => {
+    setUser(userData); // Set user data after login
+    closeModal();
+  };
+
   return (
     <div>
-      {/* Navbar */}
       <div className="hidden sm:flex items-center justify-between w-full h-16 px-4 sm:px-6 md:px-20 bg-white shadow text-black">
         {/* Logo */}
         <img className="h-5" src={logo} alt="logo" />
@@ -37,20 +43,26 @@ const Navbar = () => {
           </div>
         </form>
 
-        {/* Account link */}
+        {/* Account link or user info */}
         <div className="flex items-center font-medium gap-1 text-sm">
-          <span>Create account.</span>
-          <button
-            onClick={openModal}
-            className="text-[#2F6CE5] flex items-center gap-1"
-          >
-            It’s free! <img className="w-3" src={arrow} alt="arrow icon" />
-          </button>
+          {user ? (
+            <div className="flex items-center gap-2">
+              <img src={userProfileImage} alt="profile" className="w-8 h-8 rounded-full" />
+              <span className="text-md">{user.name}</span>
+            </div>
+          ) : (
+            <>
+              <span>Create account.</span>
+              <button onClick={openModal} className="text-[#2F6CE5] flex items-center gap-1">
+                It’s free! <img className="w-3" src={arrow} alt="arrow icon" />
+              </button>
+            </>
+          )}
         </div>
       </div>
 
       {/* Auth Modal */}
-      {showAuthModal && <AuthForm onClose={closeModal} />}
+      {showAuthModal && <AuthForm onClose={closeModal} onLogin={handleLogin} />}
     </div>
   );
 };

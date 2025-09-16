@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
 import Image from "../assets/atg_illustration.svg";
 
-const AuthForm = ({ isSignUpInitial = false, onClose }) => {
+const AuthForm = ({ isSignUpInitial = false, onClose, onLogin }) => {
   const [isSignIn, setIsSignIn] = useState(!isSignUpInitial);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -14,11 +14,19 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
     confirmPassword: "",
   });
 
-  // Dummy credentials for login
-  const dummyCredentials = {
-    email: "test@example.com",
-    password: "password123",
-  };
+  // Dummy users
+  const dummyUsers = [
+    {
+      email: "john@example.com",
+      password: "password123",
+      name: "John Doe",
+    },
+    {
+      email: "jane@example.com",
+      password: "password456",
+      name: "Jane Smith",
+    },
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,23 +36,25 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignIn) {
-      if (
-        formData.email === dummyCredentials.email &&
-        formData.password === dummyCredentials.password
-      ) {
-        window.location.href = "/";
+      const matchedUser = dummyUsers.find(
+        (user) =>
+          user.email === formData.email && user.password === formData.password
+      );
+      if (matchedUser) {
+        onLogin({ name: matchedUser.name });
       } else {
         alert("Invalid email or password");
       }
     } else {
       console.log("Sign-up submitted:", formData);
-      window.location.href = "/";
+      // For now, simulate successful signup
+      onLogin({ name: `${formData.firstName} ${formData.lastName}` });
     }
   };
 
   const handleSocialSignUp = (platform) => {
     console.log(`Sign up with ${platform}`);
-    window.location.href = "/";
+    onLogin({ name: "Social User" });
   };
 
   const handleClose = () => {
@@ -53,9 +63,7 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative flex flex-col md:flex-row">
-        
-        {/* Close Button */}
+      <div className="bg-transparent rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative flex flex-col md:flex-row">
         <button
           onClick={handleClose}
           className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 bg-white rounded-full p-1 shadow-md"
@@ -64,8 +72,6 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
         </button>
 
         <div className="flex flex-col md:flex-row w-full bg-transparent">
-          
-          {/* Form Section */}
           <div className="w-full md:w-1/2 p-4 max-h-[calc(90vh-2rem)] md:max-h-[80vh] overflow-y-auto bg-white rounded-l-xl">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left">
               {isSignIn ? "Sign In" : "Create Account"}
@@ -185,7 +191,6 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
               )}
             </form>
 
-            {/* Switch Section for Mobile */}
             <div className="mt-3 block md:hidden text-center">
               <p className="text-center text-sm text-gray-500">
                 {isSignIn ? "Don't have an account?" : "Already have an account?"}
@@ -199,7 +204,6 @@ const AuthForm = ({ isSignUpInitial = false, onClose }) => {
             </div>
           </div>
 
-          {/* Illustration Section for md and up */}
           <div className="hidden md:flex md:w-1/2 p-4 flex-col items-end justify-center bg-white rounded-r-xl">
             <p className="text-center text-sm text-gray-500 mb-4">
               {isSignIn ? "Don't have an account?" : "Already have an account?"}
